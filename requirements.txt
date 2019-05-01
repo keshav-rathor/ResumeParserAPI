@@ -2,3 +2,4 @@ flask
 PyPDF2 
 docx2txt 
 spacy
+boto3
