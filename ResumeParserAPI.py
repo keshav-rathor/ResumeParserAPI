@@ -1,20 +1,19 @@
 from flask import Flask, jsonify, request
-import boto3    # Connecting to AWS server
-import botocore # For handling AWS error
-import PyPDF2   # reading PDF files
-import docx2txt # reading word documents
-import re       # for finding patterns of Phone number and email address
-import os       # for removing files from local machine
-import spacy    # NLP model for finding entities
-
+import boto3  # Connecting to AWS server
+import botocore  # For handling AWS error
+import PyPDF2  # reading PDF files
+import docx2txt  # reading word documents
+import re  # for finding patterns of Phone number and email address
+import os  # for removing files from local machine
+import spacy  # NLP model for finding entities
 
 # Flask App Instance
 app = Flask(__name__)
 
-
 # Connecting AWS Server
-BUCKET_NAME = 'highporesume' # Name of the bucket on AWS server which contains resumme
-s3 = boto3.client('s3', aws_access_key_id='AKIAVAN3GMNKFS3MVASQ', aws_secret_access_key='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')
+BUCKET_NAME = 'highporesume'  # Name of the bucket on AWS server which contains resumme
+s3 = boto3.client('s3', aws_access_key_id='AKIAVAN3GMNKFS3MVASQ',
+                  aws_secret_access_key='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')
 
 
 # Reading resumes from local machine
@@ -44,16 +43,15 @@ def get_resume_entities(text):
     :return: A dictionary (object) with keys as entities labels and value as entities text as a list
     """
     results = {}
-    nlp_skills = spacy.load("C:\\Users\\USER5\\Desktop\\Work\\keras-english-resume-parser-and-analyzer-master\\resume_parser_skills")
-    nlp_personal = spacy.load("C:\\Users\\USER5\\Desktop\\Work\\keras-english-resume-parser-and-analyzer-master\\resume_parser_v1")
-    nlp = spacy.load("en")
+    nlp_skills = spacy.load(".\\resume_parser_skills")
+    nlp_personal = spacy.load(".\\resume_parser_v1")
+    # nlp = spacy.load("en")
 
     try:
         doc_skills = nlp_skills(text)
         doc_personal = nlp_personal(text)
     except UnicodeEncodeError:
         return {"error": "Unicode error occured."}
-
 
     phone_pattern = re.compile("\(?\d{3,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{3,4}", re.I)
     email_pattern = re.compile("[\w\.-]+@[\w\.-]+", re.I)
@@ -83,11 +81,9 @@ def get_resume_entities(text):
     return results
 
 
-
-
-@app.route('/parse_resume', methods = ['POST'])
+@app.route('/parse_resume', methods=['POST'])
 def parse_resume():
-    data = request.get_json(force = True)       # data received from post method is stored in this variable
+    data = request.get_json(force=True)  # data received from post method is stored in this variable
     file_name = data['file_url'].split('/')[-1]
     file_extension = re.search(r"\.\w+", file_name).group()
 
@@ -105,9 +101,12 @@ def parse_resume():
 
     results = get_resume_entities(resume_text)
 
-    responses = jsonify(results = results)
+    responses = jsonify(results=results)
     responses.status_code = 200
-    return(responses)
+    return (responses)
+
 
 if __name__ == '__main__':
-    app.run(port = 8000, debug = True)
+    port = int(os.getenv('PORT', 5000))
+    print("Starting app on port {}".format(port))
+    app.run(debug=False, port=port, host='0.0.0.0')
