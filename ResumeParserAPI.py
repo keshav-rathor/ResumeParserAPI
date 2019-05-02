@@ -44,8 +44,8 @@ def get_resume_entities(text):
     :return: A dictionary (object) with keys as entities labels and value as entities text as a list
     """
     results = {}
-    nlp_skills = spacy.load("./resume_parser_skills")
-    nlp_personal = spacy.load("./resume_parser_v1")
+    nlp_skills = spacy.load("/resume_parser_skills")
+    nlp_personal = spacy.load("/resume_parser_v1")
     # nlp = spacy.load("en")
 
     try:
