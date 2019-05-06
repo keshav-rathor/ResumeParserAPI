@@ -1,8 +1,6 @@
 {
-  "hist_width":0,
-  "pretrained_vectors":null,
   "beam_width":1,
-  "hist_size":0,
+  "beam_density":0.0,
   "cnn_maxout_pieces":3,
   "extra_labels":[
     "skill",
@@ -11,9 +9,11 @@
     "skill"
   ],
   "nr_class":5,
+  "hidden_depth":1,
+  "token_vector_width":128,
   "hidden_width":200,
   "maxout_pieces":2,
-  "token_vector_width":128,
-  "beam_density":0.0,
-  "hidden_depth":1
+  "pretrained_vectors":null,
+  "hist_size":0,
+  "hist_width":0
 }

@@ -1,32 +1,32 @@
 Å´transitions⁄Ç[
   {
-    "label":"skill",
-    "name":"B-skill",
     "clas":0,
-    "move":1
+    "move":1,
+    "label":"skill",
+    "name":"B-skill"
   },
   {
-    "label":"skill",
-    "name":"I-skill",
     "clas":1,
-    "move":2
+    "move":2,
+    "label":"skill",
+    "name":"I-skill"
   },
   {
-    "label":"skill",
-    "name":"L-skill",
     "clas":2,
-    "move":3
-  },
-  {
+    "move":3,
     "label":"skill",
-    "name":"U-skill",
-    "clas":3,
-    "move":4
+    "name":"L-skill"
   },
   {
-    "label":"",
-    "name":"O",
+    "clas":3,
+    "move":4,
+    "label":"skill",
+    "name":"U-skill"
+  },
+  {
     "clas":4,
-    "move":5
+    "move":5,
+    "label":"",
+    "name":"O"
   }
 ]
